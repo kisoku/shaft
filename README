@@ -1,13 +1,13 @@
-== Shaft == 
+== Shaft ==
 
 shaft(1) is a super minimal IPsec tunnel manager for OpenBSD built
 on top of OpenSSH. shaft is largely derived from OpenSSH's sftp subsystem.
 
 Currently shaft is only supported on OpenBSD and requires OpenBSD's
-ipsecctl(8) utility to operate correctly. 
+ipsecctl(8) utility to operate correctly.
 
 In order to build shaft you will need a full checkout of the OpenBSD
-source tree. 
+source tree.
 
 # tar zxf src.tar.gz -C /usr/src
 
@@ -15,10 +15,11 @@ Additionally ssh must be built in order for shaft to compile successfully
 
 $ cd /usr/src/usr.bin/ssh
 $ make obj
-$ make depends 
+$ make depends
 $ make
 
 You will need to copy the shaft source directory to /usr/src/usr.sbin
+
 $ git clone git://github.com/kisoku/shaft
 $ sudo cp -R shaft /usr/src/usr.sbin/
 $ cd /usr/src/usr.sbin/shaft
@@ -26,12 +27,38 @@ $ make obj
 $ make depend
 $ sudo make install
 
-In order for shaft-server(8) to function you will need to add the 
+In order for shaft-server(8) to function you will need to add the
 following line to /etc/ssh/sshd_config and restart sshd.
 
 Subsystem 	shaft	/usr/libexec/shaft-server
 
-Cut the crap, man, this is Shaft. 
+Shaft is client-server based IPsec tunnel manager that
+erects a ESP tunnel between two hosts. It uses aesctr as the
+encryption algorithm and hmac-sha2-256 as the authentication
+algorithm. Shaft currently requires root privileges on both
+sides of the connection and will not attempt to rekey,
+gracefully degrade or buy you a pony. Shaft is under active
+development.
+
+If you want to use shaft to protect traffic between two
+networks, learn how to use gif(4).
+
+== Example ==
+from your client connect to the shaft server.
+
+$ sudo shaft root@192.168.254.44
+$ sudo ipsecctl -sa
+FLOWS:
+flow esp in proto tcp from 192.168.254.44 port ssh to 192.168.254.98 type bypass
+flow esp out proto tcp from 192.168.254.98 to 192.168.254.44 port ssh type bypass
+flow esp in from 192.168.254.44 to 192.168.254.98 peer 192.168.254.44 type require
+flow esp out from 192.168.254.98 to 192.168.254.44 peer 192.168.254.44 type require
+
+SAD:
+esp transport from 192.168.254.98 to 192.168.254.44 spi 0xad75454f auth hmac-sha2-256 enc aesctr
+esp transport from 192.168.254.44 to 192.168.254.98 spi 0xe7efc118 auth hmac-sha2-256 enc aesctr
+
+Cut the crap, man, this is Shaft.
 
 It is distributed under the terms of the BSD license.
 Please refer to the source for additional licensing details.
