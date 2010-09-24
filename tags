@@ -1,0 +1,88 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.6	//
+MAX_DIR_DEPTH	shaft-client.c	55;"	d	file:
+MIN_READ_SIZE	shaft-client.c	52;"	d	file:
+SHAFT_ADD_TUNNEL	shaft.h	29;"	d
+SHAFT_BAD_MESSAGE	shaft.h	38;"	d
+SHAFT_CONNECTION_LOST	shaft.h	40;"	d
+SHAFT_DEL_TUNNEL	shaft.h	30;"	d
+SHAFT_EOF	shaft.h	34;"	d
+SHAFT_FAILURE	shaft.h	37;"	d
+SHAFT_INIT	shaft.h	27;"	d
+SHAFT_MAX	shaft.h	42;"	d
+SHAFT_MAX_MSG_LENGTH	shaft-common.h	29;"	d
+SHAFT_NO_CONNECTION	shaft.h	39;"	d
+SHAFT_NO_SUCH_FILE	shaft.h	35;"	d
+SHAFT_OK	shaft.h	33;"	d
+SHAFT_OP_UNSUPPORTED	shaft.h	41;"	d
+SHAFT_PERMISSION_DENIED	shaft.h	36;"	d
+SHAFT_REQ_TUNNEL	shaft.h	28;"	d
+SHAFT_RULES	shaft-common.h	30;"	d
+SHAFT_STATUS	shaft.h	43;"	d
+SHAFT_VERSION	shaft.h	25;"	d
+_PATH_SHAFT_SERVER	shaft.h	23;"	d
+_SHAFT_CLIENT_H	shaft-client.h	20;"	d
+_SHAFT_H_	shaft.h	21;"	d
+akey1	shaft-common.h	/^	char *akey1; $/;"	m	struct:shaft_sa
+akey2	shaft-common.h	/^	char *akey2; $/;"	m	struct:shaft_sa
+client_addr	test_rules.c	/^char *client_addr = NULL, *server_addr = NULL;$/;"	v
+connect_to_server	shaft.c	/^connect_to_server(char *path, char **args, int *in, int *out)$/;"	f	file:
+create_key	shaft-common.c	/^create_key(int bits)$/;"	f
+create_rules	shaft-common.c	/^create_rules(struct shaft_flow *flow, struct shaft_sa *sa)$/;"	f
+create_sa	shaft-common.c	/^create_sa(char *src, char *dst)$/;"	f
+create_tmpfile	shaft-common.c	/^create_tmpfile(FILE **fp, char **path)$/;"	f
+discover_params	shaft-common.c	/^discover_params(char *host, char *port, struct shaft_flow *flow)$/;"	f
+do_init	shaft-client.c	/^do_init(int fd_in, int fd_out, struct shaft_flow *flow)$/;"	f
+do_req_tunnel	shaft-client.c	/^do_req_tunnel(struct shaft_conn *conn, char *host)$/;"	f
+dst	shaft-common.h	/^	char *dst;$/;"	m	struct:shaft_flow
+dst	shaft-common.h	/^	char *dst;$/;"	m	struct:shaft_sa
+ekey1	shaft-common.h	/^	char *ekey1; $/;"	m	struct:shaft_sa
+ekey2	shaft-common.h	/^	char *ekey2;$/;"	m	struct:shaft_sa
+fd_in	shaft-client.c	/^	int fd_in;$/;"	m	struct:shaft_conn	file:
+fd_out	shaft-client.c	/^	int fd_out;$/;"	m	struct:shaft_conn	file:
+flow	shaft-server.c	/^struct shaft_flow flow;$/;"	v	typeref:struct:shaft_flow
+get_cstring	shaft-server.c	51;"	d	file:
+get_int	shaft-server.c	49;"	d	file:
+get_int64	shaft-server.c	48;"	d	file:
+get_msg	shaft-client.c	/^get_msg(int fd, Buffer *m)$/;"	f	file:
+get_status	shaft-client.c	/^get_status(int fd, u_int expected_id)$/;"	f	file:
+get_string	shaft-server.c	50;"	d	file:
+host	test_rules.c	/^char *host = NULL; char *port = NULL;$/;"	v
+iqueue	shaft-server.c	/^Buffer iqueue;$/;"	v
+killchild	shaft.c	/^killchild(int signo)$/;"	f	file:
+local	shaft-common.h	/^	char *local;$/;"	m	struct:shaft_flow
+log_level	shaft-server.c	/^LogLevel log_level = SYSLOG_LEVEL_ERROR;$/;"	v
+main	shaft-server.c	/^main (int argc, char **argv)$/;"	f
+main	shaft.c	/^main(int argc, char **argv)$/;"	f
+main	test_rules.c	/^main(int argc, char **argv)$/;"	f
+msg_id	shaft-client.c	/^	u_int msg_id;$/;"	m	struct:shaft_conn	file:
+num_requests	shaft-client.c	/^	u_int num_requests;$/;"	m	struct:shaft_conn	file:
+oqueue	shaft-server.c	/^Buffer oqueue;$/;"	v
+peer	shaft-common.h	/^	char *peer;$/;"	m	struct:shaft_flow
+port	test_rules.c	/^char *host = NULL; char *port = NULL;$/;"	v
+process	shaft-server.c	/^process(void)$/;"	f	file:
+process_init	shaft-server.c	/^process_init(void)$/;"	f	file:
+process_req_tunnel	shaft-server.c	/^process_req_tunnel(void)$/;"	f	file:
+pw	shaft-server.c	/^struct passwd *pw = NULL;$/;"	v	typeref:struct:passwd
+sa	shaft-server.c	/^struct shaft_sa sa;$/;"	v	typeref:struct:shaft_sa
+send_msg	shaft-client.c	/^send_msg(int fd, Buffer *m)$/;"	f	file:
+send_msg	shaft-server.c	/^send_msg(Buffer *m)$/;"	f	file:
+send_status	shaft-server.c	/^send_status(u_int32_t id, u_int32_t status)$/;"	f	file:
+server_addr	test_rules.c	/^char *client_addr = NULL, *server_addr = NULL;$/;"	v
+shaft_conn	shaft-client.c	/^struct shaft_conn {$/;"	s	file:
+shaft_flow	shaft-common.h	/^struct shaft_flow {$/;"	s
+shaft_sa	shaft-common.h	/^struct shaft_sa {$/;"	s
+shaft_server_cleanup_exit	shaft-server.c	/^shaft_server_cleanup_exit(int i)$/;"	f
+spi1	shaft-common.h	/^	char *spi1; $/;"	m	struct:shaft_sa
+spi2	shaft-common.h	/^	char *spi2;$/;"	m	struct:shaft_sa
+src	shaft-common.h	/^	char *src;$/;"	m	struct:shaft_sa
+sshpid	shaft.c	/^static pid_t sshpid = -1;$/;"	v	file:
+status_to_message	shaft-server.c	/^status_to_message(u_int32_t status)$/;"	f	file:
+usage	shaft-server.c	/^usage(void)$/;"	f	file:
+usage	shaft.c	/^usage(void)$/;"	f	file:
+version	shaft-client.c	/^	u_int version;$/;"	m	struct:shaft_conn	file:
+version	shaft-server.c	/^int version;$/;"	v

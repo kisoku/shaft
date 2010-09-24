@@ -1,0 +1,9 @@
+.cvs
+CVS
+*/obj
+*/*.o
+*/*.cat1
+*/*.cat8
+shaft/shaft
+shaft-server/shaft-server
+

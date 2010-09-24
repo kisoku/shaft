@@ -1,0 +1,10 @@
+== Shaft == 
+
+shaft(1) is a super minimal IPsec tunnel manager for OpenBSD built
+on top of OpenSSH. 
+
+shaft is largely derived from OpenSSH's sftp subsystem.
+
+It is distributed under the terms of the BSD license.
+
+Copyright 2010 Mathieu Sauve-Frankel <msf@openbsd.org>
