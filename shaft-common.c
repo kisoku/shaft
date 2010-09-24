@@ -202,8 +202,7 @@ create_rules(struct shaft_flow *flow, struct shaft_sa *sa)
 	char *rule_path;
 
 	create_tmpfile(&out, &rule_path);
-	fprintf(out, "flow esp from %s to %s peer %s\n",
-	    flow->local, flow->dst, flow->peer);
+
 	if (strcmp(flow->dst, flow->peer) == 0) {
 		if (responder == 0) {
 			fprintf(out, "flow esp proto tcp from %s to %s port ssh peer %s type bypass\n",
@@ -214,7 +213,9 @@ create_rules(struct shaft_flow *flow, struct shaft_sa *sa)
 		}
 			
 	}
-	fprintf(out, "esp transport from %s to %s spi 0x%s:0x%s \\\n",
+	fprintf(out, "flow esp from %s to %s peer %s\n",
+	    flow->local, flow->dst, flow->peer);
+	fprintf(out, "esp from %s to %s spi 0x%s:0x%s \\\n",
 	    sa->src, sa->dst, sa->spi1, sa->spi2);
 	fprintf(out, "\tauth hmac-sha2-256 enc aesctr \\\n");
 	fprintf(out, "\tauthkey \"%s:%s\" \\\n", sa->akey1, sa->akey2);
