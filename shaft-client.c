@@ -90,7 +90,6 @@ get_msg(int fd, Buffer *m)
 {
 	u_int msg_len;
 
-	/* XXX */ buffer_dump(m);
 	buffer_append_space(m, 4);
 	if (atomicio(read, fd, buffer_ptr(m), 4) != 4) {
 		if (errno == EPIPE)
@@ -195,7 +194,6 @@ do_req_sa(struct shaft_conn *conn, struct shaft_sa *sa)
 	buffer_put_char(&msg, SHAFT_REQUEST_SA);
 	buffer_put_int(&msg, id);
 
-	/* XXX */ buffer_dump(&msg);
 	send_msg(conn->fd_out, &msg);
 	buffer_clear(&msg);
 
@@ -226,7 +224,6 @@ do_add_sa(struct shaft_conn *conn, char * rules_path)
 	buffer_put_char(&msg, SHAFT_ADD_SA);
 	buffer_put_int(&msg, id);
 
-	/* XXX */ buffer_dump(&msg);
 	send_msg(conn->fd_out, &msg);
 
 	add_rules(rules_path);
