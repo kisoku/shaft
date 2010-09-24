@@ -16,11 +16,6 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-/* XXX: memleaks */
-/* XXX: signed vs unsigned */
-/* XXX: remove all logging, only return status codes */
-/* XXX: copy between two remote sites */
-
 #include <sys/types.h>
 #include <sys/queue.h>
 #include <sys/stat.h>
