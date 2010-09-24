@@ -20,7 +20,7 @@ $ make
 
 You will need to copy the shaft source directory to /usr/src/usr.sbin
 $ git clone git://github.com/kisoku/shaft
-$ sudp cp -R shaft /usr/src/usr.sbin/
+$ sudo cp -R shaft /usr/src/usr.sbin/
 $ cd /usr/src/usr.sbin/shaft
 $ make obj
 $ make depend
