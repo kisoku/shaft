@@ -281,20 +281,3 @@ delete_rules(char *rules_path)
 {
 	exec_ipsecctl(IPSECCTL_DELETE, rules_path);
 }
-
-/*
-static void
-insert_rules(char *path, **args)
-{
-	pid_t ipsecpid;
-
-	if ((ipsecpid = fork()) == -1) {
-		fatal("fork: %s", strerror(errno));
-	else if (ipsecpid == 0) {
-
-		signal(SIGINT, SIG_IGN);
-		signal(SIGTERM, SIG_DFL);
-		execvp(path, args);
-	}
-}
-*/
