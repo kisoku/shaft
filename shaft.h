@@ -2,7 +2,7 @@
 
 /*
  * Copyright (c) 2010 Mathieu Sauve-Frankel <msf@openbsd.org>
- * Copyright (c) 2004, 2005 Hans-Joerg Hoexer <hshoexer@openbsd.org>
+ * Copyright (c) 2001 Markus Friedl.  All rights reserved.
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -16,9 +16,6 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
-
-#ifndef _SHAFT_H_
-#define _SHAFT_H_
 
 #define _PATH_SHAFT_SERVER		"/usr/libexec/shaft-server"
 #define _PATH_SHAFT_RULES 		"/tmp/shaft_rules.XXXXXXX"
@@ -53,7 +50,5 @@
 #define SHAFT_OP_UNSUPPORTED		8
 #define SHAFT_MAX			8
 #define SHAFT_STATUS			101
-
-#endif /* _SHAFT_H_ */
 
 void	shaft_server_cleanup_exit(int) __attribute__((noreturn));

@@ -1,8 +1,7 @@
-/* $OpenBSD: sftp-common.h,v 1.11 2010/01/13 01:40:16 djm Exp $ */
+/* $OpenBSD$ */
 
 /*
- * Copyright (c) 2001 Markus Friedl.  All rights reserved.
- * Copyright (c) 2001 Damien Miller.  All rights reserved.
+ * Copyright (c) 2010 Mathieu Sauve-Frankel <msf@openbsd.org>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -60,4 +59,3 @@ void exec_ipsecctl(int, char *);
 void test_rules(char *);
 void add_rules(char *);
 void delete_rules(char *);
-

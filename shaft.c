@@ -1,8 +1,8 @@
 /* $OpenBSD$ */
 
 /*
- * Copyright (c) 2001-2004 Damien Miller <djm@openbsd.org>
  * Copyright (c) 2010 Mathieu Sauve-Frankel <msf@openbsd.org>
+ * Copyright (c) 2001-2004 Damien Miller <djm@openbsd.org>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above

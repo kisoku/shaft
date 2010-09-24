@@ -1,5 +1,6 @@
-/* $OpenBSD: shaft-client.c,v 1.92 2010/07/19 03:16:33 djm Exp $ */
+/* $OpenBSD$ */
 /*
+ * Copyright (c) 2010 Mathieu Sauve-Frankel <msf@openbsd.org>
  * Copyright (c) 2001-2004 Damien Miller <djm@openbsd.org>
  *
  * Permission to use, copy, modify, and distribute this software for any

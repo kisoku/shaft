@@ -1,6 +1,7 @@
-/* $OpenBSD: sftp-client.h,v 1.18 2009/08/18 18:36:20 djm Exp $ */
+/* $OpenBSD$ */
 
 /*
+ * Copyright (c) 2010 Mathieu Sauve-Frankel <msf@openbsd.org>
  * Copyright (c) 2001-2004 Damien Miller <djm@openbsd.org>
  *
  * Permission to use, copy, modify, and distribute this software for any
@@ -16,9 +17,6 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#ifndef _SHAFT_CLIENT_H
-#define _SHAFT_CLIENT_H
-
 /*
  * Initialise a shaft connection. Returns NULL on error or
  * a pointer to a initialized sftp_conn struct on success.
@@ -31,5 +29,3 @@ struct shaft_sa;
 struct shaft_conn *do_init(int, int, struct shaft_flow *);
 void do_req_sa(struct shaft_conn *, struct shaft_sa *);
 void do_add_sa(struct shaft_conn *, char *);
-
-#endif
