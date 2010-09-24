@@ -141,7 +141,7 @@ char *
 create_key(int bits)
 {
 	int i, j;
-	char *hexkey; 
+	char *hexkey;
 	u_char *key;
 	key = xmalloc(bits / 8);
 	hexkey = xmalloc((bits / 4) + 1);
@@ -154,8 +154,8 @@ create_key(int bits)
 
 	hexkey[j] = '\0';
 
-	bzero(key, bits / 8); 
-	free(key); 
+	bzero(key, bits / 8);
+	free(key);
 
 	return(hexkey);
 }
@@ -198,11 +198,11 @@ create_sa(char *src, char *dst)
 char *
 create_rules(struct shaft_flow *flow, struct shaft_sa *sa)
 {
-	FILE *out; 
+	FILE *out;
 	char *rule_path;
 
 	create_tmpfile(&out, &rule_path);
-	fprintf(out, "flow esp from %s to %s peer %s\n", 
+	fprintf(out, "flow esp from %s to %s peer %s\n",
 	    flow->local, flow->dst, flow->peer);
 	if (strcmp(flow->dst, flow->peer) == 0) {
 		if (responder == 0) {
@@ -214,7 +214,7 @@ create_rules(struct shaft_flow *flow, struct shaft_sa *sa)
 		}
 			
 	}
-	fprintf(out, "esp transport from %s to %s spi 0x%s:0x%s \\\n", 
+	fprintf(out, "esp transport from %s to %s spi 0x%s:0x%s \\\n",
 	    sa->src, sa->dst, sa->spi1, sa->spi2);
 	fprintf(out, "\tauth hmac-sha2-256 enc aesctr \\\n");
 	fprintf(out, "\tauthkey \"%s:%s\" \\\n", sa->akey1, sa->akey2);
@@ -248,7 +248,7 @@ exec_ipsecctl(int action, char *rules_path)
 	addargs(&args, "-f");
 	addargs(&args, "%s", rules_path);
 
-	if ((ipsecpid = fork()) == -1) 
+	if ((ipsecpid = fork()) == -1)
 		fatal("fork: %s", strerror(errno));
 	else if (ipsecpid == 0) {
 		signal(SIGINT, SIG_IGN);
@@ -285,7 +285,7 @@ delete_rules(char *rules_path)
 static void
 insert_rules(char *path, **args)
 {
-	pid_t ipsecpid; 
+	pid_t ipsecpid;
 
 	if ((ipsecpid = fork()) == -1) {
 		fatal("fork: %s", strerror(errno));

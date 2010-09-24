@@ -39,11 +39,11 @@ struct shaft_sa {
 	u_int status;
 	char *src;
 	char *dst;
-	char *akey1; 
-	char *akey2; 
-	char *ekey1; 
+	char *akey1;
+	char *akey2;
+	char *ekey1;
 	char *ekey2;
-	char *spi1; 
+	char *spi1;
 	char *spi2;
 };
 

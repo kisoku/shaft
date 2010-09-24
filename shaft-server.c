@@ -159,7 +159,7 @@ process_req_sa(void)
 	
 	id = get_int();
 
-	s = create_sa(flow.local, flow.dst); 
+	s = create_sa(flow.local, flow.dst);
 	rules_path = create_rules(&flow, s);
 	debug2("rules_path: %s", rules_path);
 	
