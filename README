@@ -1,10 +1,38 @@
 == Shaft == 
 
 shaft(1) is a super minimal IPsec tunnel manager for OpenBSD built
-on top of OpenSSH. 
+on top of OpenSSH. shaft is largely derived from OpenSSH's sftp subsystem.
 
-shaft is largely derived from OpenSSH's sftp subsystem.
+Currently shaft is only supported on OpenBSD and requires OpenBSD's
+ipsecctl(8) utility to operate correctly. 
+
+In order to build shaft you will need a full checkout of the OpenBSD
+source tree. 
+
+# tar zxf src.tar.gz -C /usr/src
+
+Additionally ssh must be built in order for shaft to compile successfully
+
+$ cd /usr/src/usr.bin/ssh
+$ make obj
+$ make depends 
+$ make
+
+You will need to copy the shaft source directory to /usr/src/usr.sbin
+$ git clone git://github.com/kisoku/shaft
+$ sudp cp -R shaft /usr/src/usr.sbin/
+$ cd /usr/src/usr.sbin/shaft
+$ make obj
+$ make depend
+$ sudo make install
+
+In order for shaft-server(8) to function you will need to add the 
+following line to /etc/ssh/sshd_config and restart sshd.
+
+Subsystem 	shaft	/usr/libexec/shaft-server
+
+Cut the crap, man, this is Shaft. 
 
 It is distributed under the terms of the BSD license.
-
+Please refer to the source for additional licensing details.
 Copyright 2010 Mathieu Sauve-Frankel <msf@openbsd.org>
