@@ -151,7 +151,7 @@ main(int argc, char **argv)
 	struct shaft_conn *conn;
 	struct shaft_flow flow;
 	struct shaft_sa	  sa;
-	char *rules_path;
+	char *rules;
 
 	/* Ensure that fds 0, 1 and 2 are open or directed to /dev/null */
 	sanitise_stdfd();
@@ -278,10 +278,10 @@ main(int argc, char **argv)
 		fatal("Couldn't initialise connection to server");
 
         do_req_sa(conn, &sa);
-	rules_path = create_rules(&flow, &sa);
-	debug2("rules: %s", rules_path);
-	test_rules(rules_path);
-	do_add_sa(conn, rules_path);
+	rules = create_rules(&flow, &sa);
+	debug2("rules: %s", rules);
+	test_rules(rules);
+	do_add_sa(conn, rules);
 
 	close(in);
 	close(out);

@@ -53,7 +53,6 @@ void encode_sa(Buffer *, struct shaft_sa *);
 void discover_params(char *, char *, struct shaft_flow *);
 char *create_key(int);
 struct shaft_sa *create_sa(char *, char *);
-void create_tmpfile(FILE **, char **);
 char *create_rules(struct shaft_flow *, struct shaft_sa *);
 void exec_ipsecctl(int, char *);
 void test_rules(char *);

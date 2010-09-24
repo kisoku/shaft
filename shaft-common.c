@@ -44,6 +44,7 @@
 #include <netdb.h>
 
 #include "xmalloc.h"
+#include "atomicio.h"
 #include "buffer.h"
 #include "log.h"
 #include "misc.h"
@@ -160,23 +161,6 @@ create_key(int bits)
 	return(hexkey);
 }
 
-void
-create_tmpfile(FILE **fp, char **path)
-{
-	int fd;
-
-	*path = xstrdup(_PATH_SHAFT_RULES);
-
-	debug2("Creating tmpfile");
-	if ((fd = mkstemp(*path)) == -1 || (*fp = fdopen(fd, "w+")) == NULL) {
-		if (fd != -1) {
-			unlink(*path);
-		        close(fd);
-		}
-		fatal("Couldn't create shaft_rules: %s", *path);
-	}
-}
-
 struct shaft_sa *
 create_sa(char *src, char *dst)
 {
@@ -198,37 +182,39 @@ create_sa(char *src, char *dst)
 char *
 create_rules(struct shaft_flow *flow, struct shaft_sa *sa)
 {
-	FILE *out;
-	char *rule_path;
-
-	create_tmpfile(&out, &rule_path);
+	char *bypass;
+	char *rules;
 
 	if (strcmp(flow->dst, flow->peer) == 0) {
 		if (responder == 0) {
-			fprintf(out, "flow esp proto tcp from %s to %s port ssh peer %s type bypass\n",
-				flow->local, flow->dst, flow->peer);
+			xasprintf(&bypass, "flow esp proto tcp from %s to %s "
+			    "port ssh peer %s type bypass\n",
+			    flow->local, flow->dst, flow->peer);
 		} else {
-			fprintf(out, "flow esp proto tcp from %s port ssh to %s peer %s type bypass\n",
-				flow->local, flow->dst, flow->peer);
+			xasprintf(&bypass, "flow esp proto tcp from %s port ssh "
+			    "to %s peer %s type bypass\n",
+			    flow->local, flow->dst, flow->peer);
 		}
-			
 	}
-	fprintf(out, "flow esp from %s to %s peer %s\n",
-	    flow->local, flow->dst, flow->peer);
-	fprintf(out, "esp from %s to %s spi 0x%s:0x%s \\\n",
-	    sa->src, sa->dst, sa->spi1, sa->spi2);
-	fprintf(out, "\tauth hmac-sha2-256 enc aesctr \\\n");
-	fprintf(out, "\tauthkey \"%s:%s\" \\\n", sa->akey1, sa->akey2);
-	fprintf(out, "\tenckey \"%s:%s\"\n", sa->ekey1, sa->ekey2);
-	fclose(out);
+	xasprintf(&rules, "%s"
+	    "flow esp from %s to %s peer %s\n"
+	    "esp from %s to %s spi 0x%s:0x%s "
+	    "auth hmac-sha2-256 enc aesctr "
+	    "authkey \"%s:%s\" "
+	    "enckey \"%s:%s\"\n", bypass,
+	    flow->local, flow->dst, flow->peer,
+	    sa->src, sa->dst, sa->spi1, sa->spi2,
+            sa->akey1, sa->akey2, sa->ekey1, sa->ekey2);
 
-	return(rule_path);
+	free(bypass);
+	return(rules);
 }
 
 void
-exec_ipsecctl(int action, char *rules_path)
+exec_ipsecctl(int action, char *rules)
 {
 	int s;
+	int p[2];
 	char *ipsecctl_program = _PATH_IPSECCTL;
 
 	arglist args;
@@ -246,18 +232,30 @@ exec_ipsecctl(int action, char *rules_path)
 			addargs(&args, "-d");
 			break;
 	}
-	addargs(&args, "-f");
-	addargs(&args, "%s", rules_path);
+	addargs(&args, "-f-");
+
+	if (pipe(p) == -1)
+		fatal("could not create pipe");
 
 	if ((ipsecpid = fork()) == -1)
 		fatal("fork: %s", strerror(errno));
 	else if (ipsecpid == 0) {
+		if (dup2(p[1], STDIN_FILENO) == -1) {
+			error("dup2: %s\n", strerror(errno));
+			_exit(1);
+		}
+		close(p[0]);
 		signal(SIGINT, SIG_IGN);
 		signal(SIGTERM, SIG_DFL);
 		execvp(ipsecctl_program, args.list);
-		fprintf(stderr, "exec: %s: %s\n", *args.list, strerror(errno));
+		error("exec: %s: %s\n", *args.list, strerror(errno));
 		_exit(1);
 	}
+
+	close(p[1]);
+	if (atomicio(vwrite, p[0], rules, strlen(rules)) != strlen(rules))
+		fatal("writing rules to ipsecctl stdin failed");
+	close(p[0]);
 
 	waitpid(ipsecpid, &s, 0);
 	if (s != 0)
@@ -265,19 +263,19 @@ exec_ipsecctl(int action, char *rules_path)
 }
 
 void
-test_rules(char *rules_path)
+test_rules(char *rules)
 {
-	exec_ipsecctl(IPSECCTL_TEST, rules_path);
+	exec_ipsecctl(IPSECCTL_TEST, rules);
 }
 
 void
-add_rules(char *rules_path)
+add_rules(char *rules)
 {
-	exec_ipsecctl(IPSECCTL_ADD, rules_path);
+	exec_ipsecctl(IPSECCTL_ADD, rules);
 }
 
 void
-delete_rules(char *rules_path)
+delete_rules(char *rules)
 {
-	exec_ipsecctl(IPSECCTL_DELETE, rules_path);
+	exec_ipsecctl(IPSECCTL_DELETE, rules);
 }

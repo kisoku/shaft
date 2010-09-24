@@ -208,7 +208,7 @@ do_req_sa(struct shaft_conn *conn, struct shaft_sa *sa)
 }
 
 void
-do_add_sa(struct shaft_conn *conn, char * rules_path)
+do_add_sa(struct shaft_conn *conn, char * rules)
 {
 	u_int status, id, type;
 	Buffer msg;
@@ -221,7 +221,7 @@ do_add_sa(struct shaft_conn *conn, char * rules_path)
 
 	send_msg(conn->fd_out, &msg);
 
-	add_rules(rules_path);
+	add_rules(rules);
 
 	buffer_clear(&msg);
 	status = get_status(conn->fd_in, id);

@@ -61,7 +61,7 @@ struct passwd *pw = NULL;
 /* connection state */
 struct shaft_flow flow;
 struct shaft_sa sa;
-char   *rules_path;
+char   *rules;
 
 /* input and output queue */
 Buffer iqueue;
@@ -160,10 +160,10 @@ process_req_sa(void)
 	id = get_int();
 
 	s = create_sa(flow.local, flow.dst);
-	rules_path = create_rules(&flow, s);
-	debug2("rules_path: %s", rules_path);
+	rules = create_rules(&flow, s);
+	debug2("rules: %s", rules);
 	
-	test_rules(rules_path);
+	test_rules(rules);
 	buffer_init(&msg);
 	buffer_put_char(&msg, SHAFT_REPLY_SA);
 	
@@ -186,12 +186,11 @@ process_req_sa(void)
 static void
 process_add_sa(void)
 {
-	Buffer	msg;
 	u_int32_t id;
 
 	id = get_int();
+	add_rules(rules);
 
-	add_rules(rules_path);
 	send_status(id, SHAFT_OK);
 }
 
